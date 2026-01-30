@@ -6,6 +6,10 @@
 
 用于创建、编辑、追踪和对比 Prompt 的演化过程
 
+[![GitHub release](https://img.shields.io/github/v/release/cuiyunlong/PromptVault?style=flat-square)](https://github.com/cuiyunlong/PromptVault/releases)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey?style=flat-square)](#-快速开始)
+
 [English](./README_EN.md) | 简体中文
 
 </div>
@@ -21,6 +25,7 @@
 - 🎨 **现代 UI** - 基于 Tailwind CSS + shadcn/ui 的精美界面
 - ⚡️ **高性能** - Rust 后端 + React 前端，响应迅速
 - 🔒 **隐私第一** - 无数据上传，无用户跟踪
+- 🌍 **跨平台** - 支持 Windows、macOS 和 Linux
 
 ## 🎯 核心场景
 
@@ -31,12 +36,45 @@
 
 ## 🚀 快速开始
 
-### 前置要求
+### 方式一：下载预编译版本（推荐）
+
+前往 [Releases 页面](https://github.com/cuiyunlong/PromptVault/releases) 下载对应平台的安装包：
+
+- **macOS**: `PromptVault_x.x.x_aarch64.dmg` (Apple Silicon) 或 `PromptVault_x.x.x_x64.dmg` (Intel)
+- **Windows**: `PromptVault_x.x.x_x64.msi` 或 `.exe`
+- **Linux**: `PromptVault_x.x.x_amd64.deb` 或 `.AppImage`
+
+#### macOS 安装步骤
+
+1. 下载 `.dmg` 文件
+2. 双击打开，拖动 PromptVault 到 Applications 文件夹
+3. 首次运行可能需要在"系统偏好设置 > 隐私与安全性"中允许打开
+
+#### Windows 安装步骤
+
+1. 下载 `.msi` 安装包
+2. 双击运行安装向导
+3. 完成后在开始菜单找到 PromptVault
+
+#### Linux 安装步骤
+
+```bash
+# Debian/Ubuntu
+sudo dpkg -i PromptVault_x.x.x_amd64.deb
+
+# 或使用 AppImage（无需安装）
+chmod +x PromptVault_x.x.x_amd64.AppImage
+./PromptVault_x.x.x_amd64.AppImage
+```
+
+### 方式二：从源码构建
+
+#### 前置要求
 
 - [Node.js](https://nodejs.org/) >= 18
 - [Rust](https://www.rust-lang.org/) >= 1.70
 
-### 安装
+#### 安装步骤
 
 ```bash
 # 克隆仓库
@@ -57,7 +95,10 @@ npm run tauri dev
 npm run tauri build
 ```
 
-构建完成后，可执行文件位于 `src-tauri/target/release/bundle/`。
+构建完成后，可执行文件位于 `src-tauri/target/release/bundle/`：
+- **Windows**: `.exe` 安装包或 `.msi`
+- **macOS**: `.dmg` 或 `.app`
+- **Linux**: `.deb`、`.AppImage` 或 `.rpm`
 
 ## 📖 使用指南
 
@@ -87,7 +128,13 @@ npm run tauri build
 
 ## 🗂️ 数据结构
 
-所有数据存储在 `~/.promptlab/`：
+所有数据存储在用户目录下的 `.promptlab/` 文件夹：
+
+- **Windows**: `C:\Users\{用户名}\.promptlab\`
+- **macOS**: `/Users/{用户名}/.promptlab/`
+- **Linux**: `/home/{用户名}/.promptlab/`
+
+目录结构：
 
 ```
 ~/.promptlab/
@@ -249,6 +296,38 @@ delete_prompt(name: String) -> ()
 list_versions(name: String) -> Vec<VersionInfo>
 diff_prompt(name: String, from: String, to: String) -> DiffResult
 ```
+
+## 📦 发布新版本
+
+如果你是维护者，发布新版本的步骤：
+
+1. **更新版本号**：
+   ```bash
+   # 更新 package.json 和 tauri.conf.json 中的 version 字段
+   # 例如：从 0.1.0 改为 0.2.0
+   ```
+
+2. **构建所有平台**：
+   ```bash
+   npm run tauri build
+   ```
+
+3. **创建 Git Tag**：
+   ```bash
+   git tag v0.2.0
+   git push origin v0.2.0
+   ```
+
+4. **创建 GitHub Release**：
+   - 访问 https://github.com/cuiyunlong/PromptVault/releases/new
+   - 选择刚创建的 tag
+   - 填写 Release 标题和更新日志
+   - 上传构建产物：
+     - `src-tauri/target/release/bundle/dmg/*.dmg` (macOS)
+     - `src-tauri/target/release/bundle/msi/*.msi` (Windows)
+     - `src-tauri/target/release/bundle/deb/*.deb` (Linux)
+     - `src-tauri/target/release/bundle/appimage/*.AppImage` (Linux)
+   - 点击 "Publish release"
 
 ## 🤝 贡献
 
