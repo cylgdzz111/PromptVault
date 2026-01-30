@@ -25,8 +25,12 @@
         "csp": null
       }
     },
-    "bundle": {
-      "active": false
-    }
+  "bundle": {
+    "active": true,
+    "targets": ["app", "msi", "deb", "dmg"],
+    "publisher": "cuiyunlong",
+    "homepage": "https://github.com/cuiyunlong/PromptVault",
+    "icon": []
+  }
   }
   
